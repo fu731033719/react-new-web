@@ -54,6 +54,11 @@ export const SearchWrapper = styled.div`
     line-height: 30px;
     border-radius: 100%;
     text-align: center;
+    transition: .5s;
+    &.focused {
+      background: #777;
+      color: #fff;
+    }
   }
 `
 export const NavSearch = styled.input.attrs({
@@ -61,7 +66,7 @@ export const NavSearch = styled.input.attrs({
 })`
   width: 160px;
   height: 38px;
-  padding: 0 20px;
+  padding: 0 30px 0 20px;
   margin-top: 9px;
   margin-left: 20px;
   outline: none;
@@ -69,8 +74,12 @@ export const NavSearch = styled.input.attrs({
   border: none;
   background: #eee;
   font-size: 14px;
+  transition: .5s;
   &::placeholder {
     color: #999;
+  }
+  &.focused {
+    width: 200px;
   }
 `
 
