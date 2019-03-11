@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchWrapper } from './style';
 import { connect } from 'react-redux';
-import {searchFocus, searchBlur} from '../../store/createAction';
+import {searchFocus, searchBlur} from './store/createAction';
 class Header extends Component {
   render () {
     return (
@@ -34,7 +34,7 @@ class Header extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    focused: state.focused,
+    focused: state.header.focused,
   }
 }
 const mapDispatchToProps = (dispatch) => {
