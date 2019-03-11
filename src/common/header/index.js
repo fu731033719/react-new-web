@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchWrapper } from './style';
+import { connect } from 'react-redux';
+import {searchFocus, searchBlur} from '../../store/createAction';
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      focused: false
-    }
-    this.handleInputFocus = this.handleInputFocus.bind(this);
-    this.handleInputBlur = this.handleInputBlur.bind(this);
-  }
   render () {
     return (
       <HeaderWrapper>
@@ -21,8 +15,8 @@ class Header extends Component {
               <i className="iconfont">&#xe636;</i>
             </NavItem>
             <SearchWrapper>
-              <NavSearch className={this.state.focused ? 'focused' : ''} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur}></NavSearch>
-              <i className={this.state.focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
+              <NavSearch className={this.props.focused ? 'focused' : ''} onFocus={this.props.handleInputFocus} onBlur={this.props.handleInputBlur}></NavSearch>
+              <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
             </SearchWrapper>
           </Nav>
           <Addition>
@@ -35,16 +29,24 @@ class Header extends Component {
       </HeaderWrapper>
     );
   }
-  handleInputFocus() {
-    this.setState({
-      focused: true
-    })
-  }
-  handleInputBlur () {
-    this.setState({
-      focused: false
-    })
+  
+  
+}
+const mapStateToProps = (state) => {
+  return {
+    focused: state.focused,
   }
 }
-
-export default Header
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleInputBlur() {
+      const action = searchBlur();
+      dispatch(action);
+    },
+    handleInputFocus() {
+      const action = searchFocus();
+      dispatch(action);
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
