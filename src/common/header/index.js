@@ -33,8 +33,9 @@ class Header extends Component {
   
 }
 const mapStateToProps = (state) => {
+  // state变为immutable对象后 需要使用其get方法来获取需要的值
   return {
-    focused: state.header.focused,
+    focused: state.get('header').get('focused'),
   }
 }
 const mapDispatchToProps = (dispatch) => {
