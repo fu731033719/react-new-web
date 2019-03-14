@@ -1,9 +1,10 @@
-import { SEARCH_FOCUS, SEARCH_BLUR } from './actionType';
+import { SEARCH_FOCUS, SEARCH_BLUR, CHANGE_LIST } from './actionType';
 
 import { fromJS } from 'immutable';
 // immutable将state变成一个不可外部修改的定量避免误操state导致的bug
 const defaultState = fromJS({
-  focused: false
+  focused: false,
+  list: [],
 });
 
 export default (state = defaultState, action) => {
@@ -13,6 +14,9 @@ export default (state = defaultState, action) => {
   }
   if (action.type === SEARCH_BLUR) {
     return state.set('focused', false);
+  }
+  if (action.type === CHANGE_LIST) {
+    return state.set('list', action.list);
   }
   return state;
 }

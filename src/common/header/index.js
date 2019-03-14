@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
-import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchWrapper } from './style';
+import { 
+  HeaderWrapper, 
+  Logo, 
+  Nav, 
+  NavItem, 
+  NavSearch, 
+  Addition, 
+  Button, 
+  SearchWrapper, 
+  SearchInfo,
+  SearchInfoTitle,
+  SearchInfoSwitch,
+  SearchInfoList,
+  SearchInfoItem
+} from './style';
 import { connect } from 'react-redux';
-import {searchFocus, searchBlur} from './store/createAction';
+import {searchFocus, searchBlur, getList} from './store/createAction';
 class Header extends Component {
   render () {
     return (
@@ -17,6 +31,23 @@ class Header extends Component {
             <SearchWrapper>
               <NavSearch className={this.props.focused ? 'focused' : ''} onFocus={this.props.handleInputFocus} onBlur={this.props.handleInputBlur}></NavSearch>
               <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
+              <SearchInfo className={this.props.focused ? 'focused' : ''}>
+                <SearchInfoTitle>
+                  热门搜索
+                  <SearchInfoSwitch>
+                    换一批
+                  </SearchInfoSwitch>
+                  <SearchInfoList>
+                    {this.props.list.map(item => {
+                      return (
+                        <SearchInfoItem>
+                          123123
+                        </SearchInfoItem>
+                      )
+                    })}
+                  </SearchInfoList>
+                </SearchInfoTitle>
+              </SearchInfo>
             </SearchWrapper>
           </Nav>
           <Addition>
@@ -36,6 +67,7 @@ const mapStateToProps = (state) => {
   // state变为immutable对象后 需要使用其get方法来获取需要的值
   return {
     focused: state.get('header').get('focused'),
+    list: state.get('header').get('list')
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -46,7 +78,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleInputFocus() {
       const action = searchFocus();
+      const action2 = getList();
       dispatch(action);
+      dispatch(action2);
     }
   }
 }
